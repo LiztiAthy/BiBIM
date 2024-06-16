@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiBIM History</title>
+    <link rel="stylesheet" href="slidelayout.css">
+</head>
+
+<body>
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="slide.html">History</a></li>
+                <li><a href="alphabet.html">Alphabet</a></li>
+
+                <li class="link">
+                    <a href="handtuto.html" target="_blank">3D Hand</a>
+                </li>
+
+                <li class="link">
+                    <a href="quiz.html" target="_blank">Quiz Game</a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+
+    <section id="history">
+        <div class="container">
+            <div class="slider-wrapper">
+                <div class="slider" id="slider">
+                    <img id="slide-1" src="images/his1.png" class="img" alt="Slide 1"/>
+                    <img id="slide-2" src="images/his2.png" class="img" alt="Slide 2"/>
+                    <img id="slide-3" src="images/his3.png" class="img" alt="Slide 3"/>
+                </div>
+                <div class="slider-nav">
+                    <a onclick="navigateSlider(0)"></a>
+                    <a onclick="navigateSlider(1)"></a>
+                    <a onclick="navigateSlider(2)"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="slide.js"></script>
+</body>
+</html>
