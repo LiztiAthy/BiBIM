@@ -1,4 +1,6 @@
 const cards = document.querySelectorAll(".card");
+const celebrationOverlay = document.getElementById("celebration-overlay");
+const refreshButton = document.getElementById("refresh-button");
 
 let matched = 0;
 let cardOne, cardTwo;
@@ -23,7 +25,7 @@ function matchCards(img1, img2) {
         matched++;
         if(matched == 8) {
             setTimeout(() => {
-                return shuffleCard();
+                celebrationOverlay.classList.add("show");
             }, 1000);
         }
         cardOne.removeEventListener("click", flipCard);
@@ -58,8 +60,13 @@ function shuffleCard() {
     });
 }
 
+refreshButton.addEventListener("click", () => {
+    shuffleCard();
+    celebrationOverlay.classList.remove("show");
+});
+
 shuffleCard();
-    
+
 cards.forEach(card => {
     card.addEventListener("click", flipCard);
 });
