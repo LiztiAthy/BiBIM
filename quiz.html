@@ -143,7 +143,15 @@
 
       <button class="new-page-button" onclick="location.href='quiztime.html'">Next Quiz With Timer</button>
 
-    <div id="celebration-overlay" class="celebration-overlay">
+<audio controls autoplay loop>
+  <source src="music/quizmusic.mp3">
+</audio>
+
+    <audio id="wrong-sound" src="music/false.mp3"></audio>
+    <audio id="same-card-sound" src="music/correct.mp3"></audio>
+    <audio id="complete-sound" src="music/complete.mp3"></audio>
+
+      <div id="celebration-overlay" class="celebration-overlay">
         <div class="celebration-message">
             <h2>Well done!</h2>
             <p>You matched all the pairs.</p>
