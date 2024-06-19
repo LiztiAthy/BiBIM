@@ -5,6 +5,11 @@ const cards = document.querySelectorAll(".card"),
     celebrationOverlay = document.getElementById("celebration-overlay"),
     refreshButton = document.getElementById("refresh-button");
 
+// Reference the sound effects from the HTML
+const correctSound = document.getElementById('same-card-sound');
+const wrongSound = document.getElementById('wrong-sound');
+const winSound = document.getElementById('complete-sound');
+
 let maxTime = 30;
 let timeLeft = maxTime;
 let flips = 0;
@@ -44,10 +49,12 @@ function flipCard({ target: clickedCard }) {
 function matchCards(img1, img2) {
     if (img1 === img2) {
         matchedCard++;
+        correctSound.play(); // Play correct match sound
         if (matchedCard == 6 && timeLeft > 0) {
             clearInterval(timer);
             setTimeout(() => {
                 celebrationOverlay.classList.add("show");
+                winSound.play(); // Play win sound
             }, 1000);
             return;
         }
@@ -65,6 +72,7 @@ function matchCards(img1, img2) {
     setTimeout(() => {
         cardOne.classList.remove("shake", "flip");
         cardTwo.classList.remove("shake", "flip");
+        wrongSound.play(); // Play wrong match sound
         cardOne = cardTwo = "";
         disableDeck = false;
     }, 1200);
