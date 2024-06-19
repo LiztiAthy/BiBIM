@@ -274,3 +274,16 @@ body {
   background-color: #0056b3;
 }
   
+audio {
+  position: fixed;
+  left: 10px;
+  bottom: 70px;
+  cursor: pointer;
+  font-size: 14px;
+  color: blue;
+  border-radius: 4px;
+  padding: 10px 20px;
+  background: #fff;
+  border: 2px solid blue;
+  transition: 0.3s ease;
+}
