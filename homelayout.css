@@ -4,6 +4,15 @@ body {
     overflow-y: hidden;
 }
 
+audio {
+    position: fixed;
+    width: 270px;
+    left: 15px;
+    bottom: 10px;
+    border-radius: 50px;
+  }
+
+
 .sidebar {
     height: 100%;
     width: 300px;
@@ -49,7 +58,7 @@ nav ul li a:hover {
     align-items: flex-end; 
     justify-content: center; 
     position: relative; 
-    padding-bottom: 20px; 
+    padding-bottom: 40px; 
 }
 
 .backgrounds-clip {
