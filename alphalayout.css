@@ -1,12 +1,17 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url('images/ABCbg.png'); 
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    background-attachment: fixed; 
+    overflow-y: hidden;
 }
+
+
+audio {
+    position: fixed;
+    width: 270px;
+    left: 15px;
+    bottom: 10px;
+    border-radius: 50px;
+  }
 
 .sidebar {
     height: 100%;
@@ -16,6 +21,7 @@ body {
     left: 0;
     background-color: #2D2A29;
     padding-top: 10px;
+    z-index: 10;
 }
 
 nav ul {
@@ -44,6 +50,34 @@ nav ul li a:hover {
     border-radius: 50px;
 }
 
-.link {
-    left: 50%;
+.container {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0); 
+    display: flex;
+    align-items: flex-end; 
+    justify-content: center; 
+    position: relative; 
+    padding-bottom: 90px; 
+}
+
+.backgrounds-clip {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .backgrounds-clip {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .backgrounds-clip {
+        width: auto;
+        height: 100%;
+    }
 }
