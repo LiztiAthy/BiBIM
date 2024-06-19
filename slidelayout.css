@@ -8,6 +8,15 @@ body {
     background-attachment: fixed; 
 }
 
+audio {
+    position: fixed;
+    width: 270px;
+    left: 15px;
+    bottom: 10px;
+    border-radius: 50px;
+    background: #fff;
+  }
+
 .sidebar {
     height: 100%;
     width: 300px;
