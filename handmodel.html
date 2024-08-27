@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiBIM</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: whitesmoke;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #model-canvas {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="model-canvas"></canvas>
+
+    <!-- Include Three.js library and controls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <!-- JavaScript code -->
+    <script>
+        // Setup Three.js
+        const canvas = document.getElementById('model-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        renderer.setClearColor(0x2D2A29);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.25;
+
+        // Lighting
+        const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight1.position.set(9, 1, 7).normalize();
+        scene.add(directionalLight1);
+
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        const hemiLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+        scene.add(hemiLight);
+
+        // Camera position
+        camera.position.set(0, 0, 14); // Adjusted camera position
+
+        // Store mixers and selectable objects
+        const mixers = [];
+        const objects = [];
+
+        // Function to load and position models
+        function loadModel(modelUrl, index) {
+            const loader = new THREE.GLTFLoader();
+            loader.load(modelUrl, function (gltf) {
+                const model = gltf.scene;
+
+                model.scale.set(-1.5, 1, 1.7);
+
+                // Calculate position based on index
+                const row = Math.floor(index / 7);
+                const col = index % 7;
+                model.position.set(col * 5 - 15, -row * 5 + 10, 0); // Adjust spacing and origin
+
+                scene.add(model);
+                objects.push(model); // Add to objects array
+
+                // Setup animation
+                if (gltf.animations.length) {
+                    const mixer = new THREE.AnimationMixer(model);
+                    gltf.animations.forEach((clip) => {
+                        mixer.clipAction(clip).play();
+                    });
+                    mixers.push(mixer);
+                }
+            }, undefined, function (error) {
+                console.error('Error loading model:', error);
+            });
+        }
+
+        // Alphabetically sorted model URLs
+        const modelUrls = [
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Ahand/Ahand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Bhand/Bhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/CHand/Chand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Dhand/Dhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Ehand/Ehand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Fhand/Fhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Ghand/Ghand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Hhand/Hhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Ihand/Ihand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Jhand/Jhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Khand/Khand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Lhand/Lhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Mhand/Mhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Nhand/Nhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Ohand/Ohand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Phand/Phand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Qhand/Qhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Rhand/Rhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Shand/Shand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Thand/Thand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Uhand/Uhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Vhand/Vhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Whand/Whand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Xhand/Xhand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/UpdateHand/main/Anew/Ahand.gltf',
+            'https://raw.githubusercontent.com/LiztiAthy/Hand/main/3dHand/Zhand/Zhand.gltf'
+        ];
+
+        // Sort the model URLs alphabetically
+        modelUrls.sort();
+
+        modelUrls.forEach((url, index) => loadModel(url, index));
+
+        // Raycaster for detecting mouse clicks
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let selectedObject = null;
+        let isDragging = false;
+
+        // Event listener for mouse click
+        window.addEventListener('mousedown', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.updateMatrix();
+            raycaster.setFromCamera(mouse, camera);
+
+            const intersects = raycaster.intersectObjects(objects);
+
+            if (intersects.length > 0) {
+                selectedObject = intersects[0].object;
+                isDragging = true;
+            }
+        });
+
+        // Event listener for mouse movement
+        window.addEventListener('mousemove', (event) => {
+            if (!isDragging || !selectedObject) return;
+
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.updateMatrix();
+            raycaster.setFromCamera(mouse, camera);
+
+            const intersects = raycaster.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 0, 1), 0));
+            
+            if (intersects.length > 0) {
+                selectedObject.position.copy(intersects[0].point);
+            }
+        });
+
+        // Event listener for mouse release
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            selectedObject = null;
+        });
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            mixers.forEach(mixer => mixer.update(0.01));
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            camera.aspect = canvas.clientWidth / canvas.clientHeight;
+            camera.updateProjectionMatrix();
+        });
+
+        // Initial resize to set up canvas size
+        window.dispatchEvent(new Event('resize'));
+    </script>
+</body>
+</html>
