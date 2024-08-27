@@ -157,7 +157,7 @@
                 loader.load(modelUrl, function(gltf) {
                     const model = gltf.scene;
 
-                    model.scale.set(1.5, 1, 1.7); // Increase the X scale to 1.5 times its original width
+                    model.scale.set(-1.5, 1, 1.7); // Increase the X scale to 1.5 times its original width
                     model.position.y = -1.5;
 
                     scene.add(model);
